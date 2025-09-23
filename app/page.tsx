@@ -66,6 +66,13 @@ export default function Home() {
           >
             Explore Menu
           </Link>
+
+                    <Link
+            href="/reservations"
+            className={`${inter.className} mt-8 inline-block px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white text-lg rounded-xl shadow-lg transition-all`}
+          >
+            Reserve a table
+          </Link>
         </div>
       </section>
 

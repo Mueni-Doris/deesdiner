@@ -1,149 +1,126 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Inter, Lobster } from "next/font/google";
-import Footer from "@/components/footer";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
-
-// Fonts
-const inter = Inter({ subsets: ["latin"], weight: ["400", "600"] });
-const lobster = Lobster({ weight: "400", subsets: ["latin"] });
+import Footer from "@/components/footer";
 
 export default function ReservationForm() {
-  const [reservations, setReservations] = useState<any[]>([]);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    date: "",
-    time: "",
-    guests: 1,
-  });
+  const router = useRouter();
 
-  // Load saved reservations on mount
+  const [reservationDate, setReservationDate] = useState("");
+  const [reservationTime, setReservationTime] = useState("");
+  const [numberOfGuests, setNumberOfGuests] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  // Optional: check session on mount
   useEffect(() => {
-    const saved = localStorage.getItem("reservations");
-    if (saved) {
-      setReservations(JSON.parse(saved));
-    }
-  }, []);
+    const checkLogin = async () => {
+      try {
+        const res = await fetch("http://localhost/deesdiner-backend/check_session.php", {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await res.json();
+        if (data.status === "error" && data.redirect) {
+          router.push(data.redirect);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    checkLogin();
+  }, [router]);
 
-  // Save to localStorage whenever reservations change
-  useEffect(() => {
-    localStorage.setItem("reservations", JSON.stringify(reservations));
-  }, [reservations]);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleReserve = async (e: React.FormEvent) => {
     e.preventDefault();
-    setReservations([...reservations, form]);
-    setForm({ name: "", email: "", date: "", time: "", guests: 1 }); // reset
+
+    if (!reservationDate || !reservationTime || !numberOfGuests) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost/deesdiner-backend/reservations.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          reservation_date: reservationDate,
+          reservation_time: reservationTime,
+          number_of_guests: numberOfGuests,
+          restaurant_id: 2, // your restaurant ID
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.status === "error") {
+        toast.error(data.message);
+        if (data.redirect) {
+          setTimeout(() => router.push(data.redirect), 500);
+        }
+      } else {
+        toast.success(data.message || "Reservation successful ✨");
+        setTimeout(() => router.push("/profile"), 500);
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <section> 
-        <Navbar/>
-      <main
-        className={`px-6 py-12 bg-stone-100 min-h-screen flex flex-col items-center gap-10 ${inter.className}`}
-      >
-        {/* Reservation Form */}
-        <form
-          onSubmit={handleSubmit}
-          className="w-full max-w-lg bg-white p-6 rounded-2xl shadow-lg space-y-4"
-        >
-          <h2
-            className={`${lobster.className} text-3xl text-center mb-4 text-black`}
-          >
-            Reserve a Table
-          </h2>
-
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={form.name}
-            onChange={handleChange}
-            required
-          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          />
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          />
-
-          <div className="flex gap-4">
+    <>
+      <Navbar />
+      <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+        <h1 className="text-2xl font-bold mb-4">Make a Reservation</h1>
+        <form onSubmit={handleReserve} className="space-y-4">
+          <div>
+            <label className="block font-medium mb-1">Date</label>
             <input
               type="date"
-              name="date"
-              value={form.date}
-              onChange={handleChange}
+              value={reservationDate}
+              onChange={(e) => setReservationDate(e.target.value)}
+              className="w-full border rounded px-3 py-2"
               required
-          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            />
-            <input
-              type="time"
-              name="time"
-              value={form.time}
-              onChange={handleChange}
-              required
-          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
           </div>
-
-          <input
-            type="number"
-            name="guests"
-            min="1"
-            value={form.guests}
-            onChange={handleChange}
-            required
-          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          />
-
+          <div>
+            <label className="block font-medium mb-1">Time</label>
+            <input
+              type="time"
+              value={reservationTime}
+              onChange={(e) => setReservationTime(e.target.value)}
+              className="w-full border rounded px-3 py-2"
+              required
+            />
+          </div>
+          <div>
+            <label className="block font-medium mb-1">Number of Guests</label>
+            <input
+              type="number"
+              min={1}
+              value={numberOfGuests}
+              onChange={(e) => setNumberOfGuests(parseInt(e.target.value))}
+              className="w-full border rounded px-3 py-2"
+              required
+            />
+          </div>
           <button
             type="submit"
-            className="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-800"
+            disabled={loading}
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
           >
-            Reserve Table
+            {loading ? "Booking..." : "Reserve"}
           </button>
         </form>
-
- {/* Reservations List - only rendered if available */}
-  {reservations.length > 0 && (
-    <div className="mt-10 w-full max-w-lg bg-white p-6 rounded-2xl shadow-lg">
-      <h3 className="text-xl font-bold mb-4">Your Reservations</h3>
-      <ul className="space-y-3">
-        {reservations.map((res, index) => (
-          <li
-            key={index}
-            className="p-3 border rounded-lg flex justify-between items-center"
-          >
-            <div>
-              <p className="font-semibold">{res.name}</p>
-              <p className="text-sm text-gray-600">
-                {res.date} at {res.time} — {res.guests} guest(s)
-              </p>
-            </div>
-            <span className="text-xs text-gray-500">{res.email}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-        )}
-      </main>
-
-      {/* Footer */}
+      </div>
       <Footer />
-    </section>
+    </>
   );
 }

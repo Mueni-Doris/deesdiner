@@ -37,6 +37,7 @@ export default function Navbar() {
           { href: "/", label: "Home" },
           { href: "/menu", label: "Menu" },
           { href: "/reservations", label: "Reservations" },
+          { href: "/profile", label: "Profile" },
         ].map((link) => (
           <Link
             key={link.href}
