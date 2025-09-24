@@ -75,52 +75,61 @@ export default function ReservationForm() {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold mb-4">Make a Reservation</h1>
-        <form onSubmit={handleReserve} className="space-y-4">
-          <div>
-            <label className="block font-medium mb-1">Date</label>
-            <input
-              type="date"
-              value={reservationDate}
-              onChange={(e) => setReservationDate(e.target.value)}
-              className="w-full border rounded px-3 py-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block font-medium mb-1">Time</label>
-            <input
-              type="time"
-              value={reservationTime}
-              onChange={(e) => setReservationTime(e.target.value)}
-              className="w-full border rounded px-3 py-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block font-medium mb-1">Number of Guests</label>
-            <input
-              type="number"
-              min={1}
-              value={numberOfGuests}
-              onChange={(e) => setNumberOfGuests(parseInt(e.target.value))}
-              className="w-full border rounded px-3 py-2"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
-          >
-            {loading ? "Booking..." : "Reserve"}
-          </button>
-        </form>
-      </div>
-      <Footer />
-    </>
+<>
+  <Navbar />
+  <div className="min-h-screen flex flex-col items-center bg-amber-50 px-4 py-10">
+    <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md space-y-6">
+      <h2 className="text-2xl font-bold text-center text-gray-800">
+        Make a Reservation
+      </h2>
+
+      <form onSubmit={handleReserve} className="space-y-4">
+        <div>
+          <label className="block font-medium mb-1 text-gray-700">Date</label>
+          <input
+            type="date"
+            value={reservationDate}
+            onChange={(e) => setReservationDate(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block font-medium mb-1 text-gray-700">Time</label>
+          <input
+            type="time"
+            value={reservationTime}
+            onChange={(e) => setReservationTime(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block font-medium mb-1 text-gray-700">Number of Guests</label>
+          <input
+            type="number"
+            min={1}
+            value={numberOfGuests}
+            onChange={(e) => setNumberOfGuests(parseInt(e.target.value))}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-amber-500 text-white py-2 rounded-lg font-semibold hover:bg-amber-600 transition duration-200 shadow-sm"
+        >
+          {loading ? "Booking..." : "Reserve"}
+        </button>
+      </form>
+    </div>
+  </div>
+  <Footer />
+</>
+
   );
 }

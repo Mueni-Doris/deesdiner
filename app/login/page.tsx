@@ -37,14 +37,20 @@ if (data.status === "success") {
 
   localStorage.setItem('session_id', data.session_id);
 
-  const role = data.user?.role;
-  setTimeout(() => {
-    if (role === "admin") {
-      router.push("/reports");
-    } else {
-      router.push("/reservations");
-    }
-  }, 500);
+const role = data.user?.role;
+
+setTimeout(() => {
+  if (role === "admin") {
+    router.push("/reports");      // Admin dashboard
+  } else if (role === "owner") {
+    router.push("/owner-dashboard"); // Owner dashboard
+  } else if (role === "user") {
+    router.push("/menu");         // Normal user
+  } else {
+    toast.error("Unknown role");  // fallback
+  }
+}, 500);
+
 } else {
   toast.error(data.message || "Invalid login 😶");
 }

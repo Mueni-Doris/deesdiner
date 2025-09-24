@@ -2,7 +2,7 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons"
-import { faTwitter, faFacebook, faInstagram,faGithub } from "@fortawesome/free-brands-svg-icons"
+import { faTwitter, faFacebook, faInstagram} from "@fortawesome/free-brands-svg-icons"
 
 export default function Footer() {
   return (
