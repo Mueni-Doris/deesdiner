@@ -62,13 +62,13 @@ const fetchProfile = async () => {
 
   return (
     <>
-      <Navbar />
+     
 
       <div className="min-h-screen flex flex-col items-center bg-amber-50 px-4 py-10">
         <div className="px-6 backdrop-blur-md border border-amber-500 p-10 rounded-3xl shadow-2xl w-full max-w-3xl space-y-8">
           {/* Title */}
           <h1 className="text-3xl font-bold text-center text-yellow-800 tracking-wide flex flex-col items-center gap-4">
-            <span className="bg-yellow-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center text-4xl">
+            <span className="bg-yellow-600 text-black p-4 rounded-full shadow-lg flex items-center justify-center text-4xl">
               <FontAwesomeIcon icon={faUser} />
             </span>
             Hello {user.full_name}
@@ -77,8 +77,8 @@ const fetchProfile = async () => {
           {/* Account Details */}
           <div className="space-y-2">
             <h2 className="text-xl font-semibold mb-2 text-yellow-800">Account Details</h2>
-            <p><b>Email:</b> {user.email}</p>
-            <p><b>Phone number:</b> {user.phone_number}</p>
+            <p className="text-black italic"><b>Email:</b> {user.email}</p>
+            <p className="text-black italic"><b>Phone number:</b> {user.phone_number}</p>
           </div>
 
           {/* Reservations */}

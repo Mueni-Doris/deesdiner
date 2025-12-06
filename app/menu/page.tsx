@@ -30,12 +30,36 @@ export default function Menu() {
         { name: "Latte", price: "290/-" },
       ],
     },
+
+        {
+      title: "Hot Drinks",
+      image: "/hot.jpg",
+      items: [
+        { name: "Espresso", price: "210/-" },
+        { name: "Cappuccino", price: "260/-" },
+        { name: "Mocha", price: "320/-" },
+        { name: "Americano", price: "200/-" },
+        { name: "Latte", price: "290/-" },
+      ],
+    },
+
+        {
+      title: "Hot Drinks",
+      image: "/hot.jpg",
+      items: [
+        { name: "Espresso", price: "210/-" },
+        { name: "Cappuccino", price: "260/-" },
+        { name: "Mocha", price: "320/-" },
+        { name: "Americano", price: "200/-" },
+        { name: "Latte", price: "290/-" },
+      ],
+    },
   ];
 
   return (
     <main className="min-h-screen flex flex-col bg-amber-50" >
         
-      <Navbar />
+      
       <section className="px-6 py-12 min-h-screen flex flex-col items-center gap-10" >
 
       {categories.map((category, index) => (

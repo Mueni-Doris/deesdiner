@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Inter, Lobster } from 'next/font/google';
-import Navbar from '@/components/navbar';
 import Footer from '@/components/footer'; 
 
 // 🎨 Fonts
@@ -65,7 +64,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-amber-50">
-      <Navbar />
+      
 
       <main className="flex flex-1 items-center justify-center px-4">
         <form

@@ -24,7 +24,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col bg-amber-50" >
-      <Navbar />
 
       {/* Hero Section */}
       <section className="relative h-[80vh] w-full overflow-hidden">

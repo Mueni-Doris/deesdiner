@@ -46,7 +46,7 @@ export default function ThankYouPage() {
 
   return (
     <>
-    <Navbar />
+   
     <div className="min-h-screen flex flex-col items-center justify-center bg--50 text-center px-4">
       <h1 className="text-3xl md:text-4xl font-bold text-black-800">
         Thank You for Your Purchase 🤗🤗

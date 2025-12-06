@@ -33,6 +33,8 @@ export default function LoginForm() {
 
       const data = await res.json();
 if (data.status === "success") {
+  window.dispatchEvent(new Event("sessionChanged"));
+
   toast.success("Welcome back ✨");
 
   localStorage.setItem('session_id', data.session_id);
@@ -69,7 +71,7 @@ setTimeout(() => {
 
   return (
     <div className="min-h-screen flex flex-col bg-amber-50">
-      <Navbar />
+     
       <main className="flex-grow flex items-center justify-center px-4">
         <form
           onSubmit={handleLogin}
@@ -84,19 +86,21 @@ setTimeout(() => {
           <input
             type="email"
             placeholder="Enter your email"
-            className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full bg-white-900 text-black placeholder-gray-400 p-3 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+
           <input
             type="password"
             placeholder="Enter your password"
-            className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full bg-white-900 text-black placeholder-gray-400 p-3 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition mt-3"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+
           <button
             type="submit"
             disabled={loading}
