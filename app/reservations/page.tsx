@@ -80,6 +80,7 @@ export default function ReservationForm() {
 <>
   
   <div className="min-h-screen flex flex-col items-center bg-amber-50 px-4 py-10">
+    <Navbar />
     <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md space-y-6">
       <h2 className="text-2xl font-bold text-center text-amber-800">
         Make a Reservation

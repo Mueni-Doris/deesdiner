@@ -65,6 +65,7 @@ const fetchProfile = async () => {
      
 
       <div className="min-h-screen flex flex-col items-center bg-amber-50 px-4 py-10">
+            <Navbar />
         <div className="px-6 backdrop-blur-md border border-amber-500 p-10 rounded-3xl shadow-2xl w-full max-w-3xl space-y-8">
           {/* Title */}
           <h1 className="text-3xl font-bold text-center text-yellow-800 tracking-wide flex flex-col items-center gap-4">

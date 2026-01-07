@@ -16,7 +16,7 @@ export default function Menu() {
 
   return (
     <main className="min-h-screen flex flex-col bg-amber-50">
-
+      <Navbar />
       <section className="px-6 py-12 flex flex-col items-center gap-10">
         {menuImages.map((menu, index) => (
           <div
