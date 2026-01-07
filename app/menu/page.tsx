@@ -5,103 +5,36 @@ import Image from "next/image";
 import Footer from "@/components/footer";
 
 export default function Menu() {
-  const categories = [
-    {
-      title: "Iced and Soft Drinks",
-      image: "/coffee.jpg",
-      items: [
-        { name: "Iced Tea", price: "220/-" },
-        { name: "Iced Coffee", price: "240/-" },
-        { name: "Iced Cappuccino", price: "320/-" },
-        { name: "Iced Mocha", price: "450/-" },
-        { name: "Mint Punch", price: "330/-" },
-        { name: "Lemonade", price: "320/-" },
-        { name: "Flavoured Lemonade", price: "470/-" },
-      ],
-    },
-    {
-      title: "Hot Drinks",
-      image: "/hot.jpg",
-      items: [
-        { name: "Espresso", price: "210/-" },
-        { name: "Cappuccino", price: "260/-" },
-        { name: "Mocha", price: "320/-" },
-        { name: "Americano", price: "200/-" },
-        { name: "Latte", price: "290/-" },
-      ],
-    },
-
-        {
-      title: "Hot Drinks",
-      image: "/hot.jpg",
-      items: [
-        { name: "Espresso", price: "210/-" },
-        { name: "Cappuccino", price: "260/-" },
-        { name: "Mocha", price: "320/-" },
-        { name: "Americano", price: "200/-" },
-        { name: "Latte", price: "290/-" },
-      ],
-    },
-
-        {
-      title: "Hot Drinks",
-      image: "/hot.jpg",
-      items: [
-        { name: "Espresso", price: "210/-" },
-        { name: "Cappuccino", price: "260/-" },
-        { name: "Mocha", price: "320/-" },
-        { name: "Americano", price: "200/-" },
-        { name: "Latte", price: "290/-" },
-      ],
-    },
+  // Array of menu images (each image is the full menu for that category)
+  const menuImages = [
+    { title: "Hot Drinks", image: "/breakfast.png" },
+    { title: "Soft Drinks", image: "/brunch.jpeg" },
+    { title: "Desserts", image: "/desserts.jpeg" },
+    { title: "Main Courses", image: "/Juices.jpeg" },
+    // Add more full menu images here
   ];
 
   return (
-    <main className="min-h-screen flex flex-col bg-amber-50" >
-        
-      
-      <section className="px-6 py-12 min-h-screen flex flex-col items-center gap-10" >
+    <main className="min-h-screen flex flex-col bg-amber-50">
 
-      {categories.map((category, index) => (
-        <div
-          key={index}
-          className="relative w-full max-w-2xl rounded-2xl shadow-lg overflow-hidden"
-        >
-          {/* Background image */}
-          <Image
-            src={category.image}
-            alt={category.title}
-            fill
-            className="object-cover"
-          />
-
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black/30 backdrop-brightness-75" />
-
-          {/* Content */}
-          <div className="relative p-6 text-white">
-            <h2 className="text-3xl font-bold mb-4 text-center">
-              {category.title}
-            </h2>
-            <ul className="space-y-3">
-              {category.items.map((item, i) => (
-                <li
-                  key={i}
-                  className="flex justify-between border-b border-gray-300/50 pb-2"
-                >
-                  <span>{item.name}</span>
-                  <span>{item.price}</span>
-                </li>
-              ))}
-            </ul>
+      <section className="px-6 py-12 flex flex-col items-center gap-10">
+        {menuImages.map((menu, index) => (
+          <div
+            key={index}
+            className="relative w-full max-w-3xl rounded-2xl shadow-lg overflow-hidden"
+          >
+            <Image
+              src={menu.image}
+              alt={menu.title}
+              width={800}
+              height={1200}
+              className="object-cover rounded-2xl"
+            />
           </div>
-        </div>
-      ))}
-
+        ))}
       </section>
-      <Footer />
 
+      <Footer />
     </main>
-    
   );
 }
