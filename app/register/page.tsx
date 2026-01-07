@@ -54,10 +54,17 @@ export default function RegisterPage() {
       if (data.success) {
         router.push('/login');
       }
-    } catch (err: any) {
-      console.error("Registration failed:", err);
-      alert("Registration failed: " + err.message);
-    } finally {
+    } catch (err: unknown) {
+  console.error("Registration failed:", err);
+
+  if (err instanceof Error) {
+    alert("Registration failed: " + err.message);
+  } else {
+    alert("Registration failed. Please try again.");
+  }
+}
+
+     finally {
       setLoading(false);
     }
   };

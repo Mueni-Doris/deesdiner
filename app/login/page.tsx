@@ -57,17 +57,21 @@ setTimeout(() => {
   toast.error(data.message || "Invalid login 😶");
 }
 
-    } catch (err: any) {
-      console.error("Login error:", err);
-      if (err.message.includes("Failed to fetch")) {
-        toast.error("Server unreachable. Check your PHP backend.");
-      } else {
-        toast.error(err.message || "Server error. Please try again.");
-      }
-    } finally {
-      setLoading(false);
+} catch (err: unknown) {
+  console.error("Login error:", err);
+
+  if (err instanceof Error) {
+    if (err.message.includes("Failed to fetch")) {
+      toast.error("Server unreachable. Check your PHP backend.");
+    } else {
+      toast.error(err.message || "Server error. Please try again.");
     }
-  };
+  } else {
+    toast.error("Unexpected error. Please try again.");
+  }
+}
+      } 
+;
 
   return (
     <div className="min-h-screen flex flex-col bg-amber-50">

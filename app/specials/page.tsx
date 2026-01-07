@@ -43,9 +43,9 @@ export default function RegisterPage() {
       alert("Success! 🎉 " + data.message);
       router.push('/reports');
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Fetch error:", err);
-      alert("Failed to add food: " + err.message);
+      alert("Failed to add food: " + (err instanceof Error ? err.message : "Unknown error"));
     }
   };
 
